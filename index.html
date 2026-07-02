@@ -3,34 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MySports – Sprachregionen & Kanalpriorisierung</title>
+<title>MySports – Sprachregionen & Clubs</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Open Sans', Arial, sans-serif; background: #F5F5F2; padding: 32px; color: #2D2D2C; }
-.wrap { max-width: 920px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 32px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
-.title { font-family: Montserrat, Arial, sans-serif; font-size: 22px; font-weight: 700; color: #F5821F; margin-bottom: 4px; }
-.subtitle { font-size: 13px; color: #464646; margin-bottom: 20px; }
+.wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 32px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
+.title { font-family: Montserrat, Arial, sans-serif; font-size: 22px; font-weight: 700; color: #F5821F; margin-bottom: 14px; }
+.subtitle { font-size: 13px; color: #464646; margin-bottom: 14px; }
+.filters { display: flex; gap: 7px; margin-bottom: 16px; flex-wrap: wrap; }
+.filter-btn { padding: 5px 13px; border-radius: 20px; border: 1.5px solid #ccc; background: #fff; font-family: 'Open Sans', Arial, sans-serif; font-size: 11.5px; font-weight: 600; color: #464646; cursor: pointer; transition: all .15s; }
+.filter-btn:hover { border-color: #aaa; }
+#btn-all.active   { background: #2D2D2C; color: #fff; border-color: #2D2D2C; }
+#btn-nl.active    { background: #0083A8; color: #fff; border-color: #0083A8; }
+#btn-sl.active    { background: #F5821F; color: #fff; border-color: #F5821F; }
+#btn-mhl.active   { background: #4A7A5A; color: #fff; border-color: #4A7A5A; }
+#btn-pfwl.active  { background: #B5006A; color: #fff; border-color: #B5006A; }
 .layout { display: flex; gap: 20px; align-items: flex-start; }
 #smap { width: 100%; height: auto; display: block; }
-.legend { display: flex; gap: 16px; margin-top: 10px; font-size: 11.5px; color: #464646; flex-wrap: wrap; }
-.leg-item { display: flex; align-items: center; gap: 5px; }
-.sidebar { width: 215px; flex-shrink: 0; display: flex; flex-direction: column; gap: 10px; }
+.legend { display: flex; gap: 11px; margin-top: 10px; font-size: 11px; color: #464646; flex-wrap: wrap; }
+.leg-item { display: flex; align-items: center; gap: 4px; }
+.sidebar { width: 195px; flex-shrink: 0; display: flex; flex-direction: column; gap: 10px; }
 .rc { border-radius: 9px; overflow: hidden; border: 1.5px solid; }
 .rc-h { padding: 9px 13px; color: #fff; font-family: Montserrat, Arial, sans-serif; font-weight: 700; font-size: 13px; }
-.rc-b { padding: 9px 13px; font-size: 11.5px; line-height: 1.6; color: #2D2D2C; }
-.rc-b strong { font-weight: 600; display: block; margin-bottom: 5px; }
-.ch { display: flex; align-items: center; justify-content: space-between; padding: 3px 0; border-bottom: .5px solid rgba(0,0,0,.08); font-size: 11px; gap: 6px; }
-.ch:last-child { border-bottom: none; }
-.ch span:first-child { color: #464646; }
-.badge { padding: 2px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+.rc-b { padding: 10px 13px; font-size: 12px; color: #2D2D2C; }
+.mkt { display: inline-block; padding: 3px 11px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 5px; }
+.rc-sub { font-size: 10px; color: #777; margin-top: 3px; line-height: 1.7; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 10.5px; margin-top: 6px; margin-bottom: 2px; }
+.tbl td { padding: 1px 0; color: #555; }
+.tbl td:last-child { text-align: right; font-weight: 600; color: #2D2D2C; }
+.total { font-size: 11px; margin-top: 5px; padding-top: 5px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+.total:hover { opacity: .8; }
+.tog { font-size: 9px; opacity: .6; }
 .footnote { font-size: 11px; color: #888; margin-top: 14px; padding-top: 10px; border-top: 1px solid #eee; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="title">Sprachregionen & Kanalpriorisierung</div>
-  <div class="subtitle">National League Clubs als Orientierung für die Social Media Strategie — MySports 2026/27</div>
+  <div class="title">Eishockey-Clubs der Schweiz nach Sprachregion</div>
+
+  <div class="filters">
+    <button class="filter-btn active" id="btn-all"  onclick="setFilter('all')">Alle Clubs</button>
+    <button class="filter-btn"        id="btn-nl"   onclick="setFilter('nl')">National League</button>
+    <button class="filter-btn"        id="btn-sl"   onclick="setFilter('sl')">Sky Swiss League</button>
+    <button class="filter-btn"        id="btn-mhl"  onclick="setFilter('mhl')">MyHockey League</button>
+    <button class="filter-btn"        id="btn-pfwl" onclick="setFilter('pfwl')">Women's League</button>
+  </div>
 
   <div class="layout">
     <div style="flex:1;min-width:0">
@@ -39,7 +57,10 @@ body { font-family: 'Open Sans', Arial, sans-serif; background: #F5F5F2; padding
         <span class="leg-item"><svg width="14" height="14"><rect width="14" height="14" rx="2" fill="#C5E3EE" stroke="#0083A8" stroke-width="1"/></svg>Deutschschweiz</span>
         <span class="leg-item"><svg width="14" height="14"><rect width="14" height="14" rx="2" fill="#FAD9B8" stroke="#F5821F" stroke-width="1"/></svg>Romandie</span>
         <span class="leg-item"><svg width="14" height="14"><rect width="14" height="14" rx="2" fill="#F5B898" stroke="#A8540B" stroke-width="1"/></svg>Tessin</span>
-        <span class="leg-item"><svg width="14" height="14"><path d="M7,1.5 A5.5,5.5 0 0,1 7,12.5 Z" fill="#0083A8"/><path d="M7,1.5 A5.5,5.5 0 0,0 7,12.5 Z" fill="#F5821F"/></svg>Zweisprachig</span>
+        <span class="leg-item"><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="#0083A8"/></svg>NL</span>
+        <span class="leg-item"><svg width="12" height="12"><polygon points="6,1 11,6 6,11 1,6" fill="#C5E3EE" stroke="#0083A8" stroke-width="1.5"/></svg>SL</span>
+        <span class="leg-item"><svg width="12" height="12"><polygon points="6,1 12,11 0,11" fill="#C5E3EE" stroke="#0083A8" stroke-width="1.5"/></svg>MHL</span>
+        <span class="leg-item"><svg width="12" height="12"><polygon points="6,1 7.18,4.38 10.76,4.45 7.9,6.62 8.94,10.05 6,8 3.06,10.05 4.1,6.62 1.24,4.45 4.82,4.38" fill="#C5E3EE" stroke="#0083A8" stroke-width="1"/></svg>Women's League</span>
       </div>
     </div>
 
@@ -47,57 +68,117 @@ body { font-family: 'Open Sans', Arial, sans-serif; background: #F5F5F2; padding
       <div class="rc" style="border-color:#0083A8">
         <div class="rc-h" style="background:#0083A8">Deutschschweiz</div>
         <div class="rc-b">
-          <strong>8 von 14 Clubs – Primärmarkt</strong>
-          <div class="ch"><span>FB · IG · TT</span><span class="badge" style="background:#C5E3EE;color:#0083A8">Always-on</span></div>
-          <div class="ch"><span>YT · LinkedIn</span><span class="badge" style="background:#C5E3EE;color:#0083A8">Organic</span></div>
-          <div class="ch"><span>Reddit</span><span class="badge" style="background:#E8E8E5;color:#464646">Paid</span></div>
-          <div class="ch"><span>WhatsApp Business</span><span class="badge" style="background:#F5821F;color:#fff">Neu</span></div>
+          <span class="mkt" style="background:#C5E3EE;color:#005A78">Primärmarkt</span>
+          <table class="tbl" id="tbl-de" style="display:none">
+            <tr><td>NL</td><td>9</td></tr>
+            <tr><td>SL</td><td>8</td></tr>
+            <tr><td>MHL</td><td>10</td></tr>
+            <tr><td>PFWL</td><td>6</td></tr>
+          </table>
+          <div class="total" style="border-top:1.5px solid #0083A8;color:#005A78" onclick="tog('de')">
+            <span>Total Teams <strong>33</strong></span><span class="tog" id="icon-de">▼</span>
+          </div>
         </div>
       </div>
       <div class="rc" style="border-color:#F5821F">
         <div class="rc-h" style="background:#F5821F">Romandie</div>
         <div class="rc-b">
-          <strong>4–5 von 14 Clubs – Sekundärmarkt</strong>
-          <div class="ch"><span>FB · IG</span><span class="badge" style="background:#FAD9B8;color:#A8540B">Paid &amp; Organic</span></div>
-          <div class="ch"><span>TT · YT</span><span class="badge" style="background:#E8E8E5;color:#464646">Paid</span></div>
-          <div class="ch"><span>LinkedIn</span><span class="badge" style="background:#C5E3EE;color:#0083A8">Organic</span></div>
+          <span class="mkt" style="background:#FAD9B8;color:#A8540B">Sekundärmarkt</span>
+          <table class="tbl" id="tbl-fr" style="display:none">
+            <tr><td>NL</td><td>5</td></tr>
+            <tr><td>SL</td><td>2</td></tr>
+            <tr><td>MHL</td><td>1</td></tr>
+            <tr><td>PFWL</td><td>2</td></tr>
+          </table>
+          <div class="total" style="border-top:1.5px solid #F5821F;color:#A8540B" onclick="tog('fr')">
+            <span>Total Teams <strong>10</strong></span><span class="tog" id="icon-fr">▼</span>
+          </div>
         </div>
       </div>
       <div class="rc" style="border-color:#A8540B">
         <div class="rc-h" style="background:#A8540B">Tessin</div>
         <div class="rc-b">
-          <strong>2 von 14 Clubs – Nischenmarkt</strong>
-          <div class="ch"><span>FB · IG · TT</span><span class="badge" style="background:#E8E8E5;color:#464646">Paid</span></div>
-          <div class="ch"><span>Weitere</span><span class="badge" style="background:#F5B898;color:#A8540B">via Partner</span></div>
+          <span class="mkt" style="background:#F5B898;color:#7A3A08">Nischenmarkt</span>
+          <table class="tbl" id="tbl-ti" style="display:none">
+            <tr><td>NL</td><td>2</td></tr>
+            <tr><td>SL</td><td>1</td></tr>
+            <tr><td>MHL</td><td>–</td></tr>
+            <tr><td>PFWL</td><td>1</td></tr>
+          </table>
+          <div class="total" style="border-top:1.5px solid #A8540B;color:#7A3A08" onclick="tog('ti')">
+            <span>Total Teams <strong>4</strong></span><span class="tog" id="icon-ti">▼</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="footnote">
-    EHC Biel-Bienne und HC Fribourg-Gottéron (zweisprachig) werden anteilig beiden Regionen zugerechnet. Basiert auf Agenturbriefing und MySports Q&amp;A (2026).
+    Zweisprachige Clubs (Biel, Fribourg) anteilig zugerechnet. EHC Visp als Deutschschweizer Club gewertet. Im «Alle»-Modus nur NL-Labels sichtbar. PFWL = PostFinance Women's League. Daten: SIHF, Saison 2025/26.
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script>
-const clubs=[
-  {n:"ZSC",     lat:47.369,lon:8.538,r:"de",dx:-8,dy:4, a:"end"},
-  {n:"Kloten",  lat:47.452,lon:8.581,r:"de",dx:8, dy:-5,a:"start"},
-  {n:"SCRJ",    lat:47.226,lon:8.818,r:"de",dx:8, dy:4, a:"start"},
-  {n:"EV Zug",  lat:47.170,lon:8.515,r:"de",dx:-8,dy:12,a:"end"},
-  {n:"SC Bern", lat:46.948,lon:7.447,r:"de",dx:-8,dy:-5,a:"end"},
-  {n:"SCL",     lat:46.942,lon:7.777,r:"de",dx:8, dy:4, a:"start"},
-  {n:"Davos",   lat:46.800,lon:9.836,r:"de",dx:-8,dy:4, a:"end"},
-  {n:"Fribourg",lat:46.806,lon:7.154,r:"bi",dx:-8,dy:4, a:"end"},
-  {n:"Genève",  lat:46.204,lon:6.147,r:"fr",dx:8, dy:4, a:"start"},
-  {n:"Lausanne",lat:46.521,lon:6.635,r:"fr",dx:8, dy:-5,a:"start"},
-  {n:"Ajoie",   lat:47.416,lon:7.071,r:"fr",dx:8, dy:4, a:"start"},
-  {n:"Biel",    lat:47.137,lon:7.247,r:"bi",dx:8, dy:-5,a:"start"},
-  {n:"Ambri",   lat:46.504,lon:8.704,r:"ti",dx:8, dy:4, a:"start"},
-  {n:"Lugano",  lat:45.997,lon:8.943,r:"ti",dx:8, dy:-5,a:"start"},
+const nlClubs=[
+  {n:"ZSC",       lat:47.369,lon:8.538, r:"de",dx:-8, dy:4,   a:"end"},
+  {n:"Kloten",    lat:47.452,lon:8.581, r:"de",dx:8,  dy:-5,  a:"start"},
+  {n:"SCRJ",      lat:47.226,lon:8.818, r:"de",dx:8,  dy:4,   a:"start"},
+  {n:"EV Zug",    lat:47.170,lon:8.515, r:"de",dx:-8, dy:12,  a:"end"},
+  {n:"SC Bern",   lat:46.948,lon:7.447, r:"de",dx:-8, dy:-5,  a:"end"},
+  {n:"SCL",       lat:46.942,lon:7.777, r:"de",dx:8,  dy:4,   a:"start"},
+  {n:"Davos",     lat:46.800,lon:9.836, r:"de",dx:8,  dy:4,   a:"start"},
+  {n:"Fribourg",  lat:46.806,lon:7.154, r:"bi",dx:-8, dy:4,   a:"end"},
+  {n:"Genève",    lat:46.204,lon:6.147, r:"fr",dx:8,  dy:4,   a:"start"},
+  {n:"Lausanne",  lat:46.521,lon:6.635, r:"fr",dx:8,  dy:-5,  a:"start"},
+  {n:"Ajoie",     lat:47.416,lon:7.071, r:"fr",dx:8,  dy:4,   a:"start"},
+  {n:"Biel",      lat:47.137,lon:7.247, r:"bi",dx:8,  dy:-5,  a:"start"},
+  {n:"Ambri",     lat:46.504,lon:8.704, r:"ti",dx:8,  dy:4,   a:"start"},
+  {n:"Lugano",    lat:45.997,lon:8.943, r:"ti",dx:8,  dy:-5,  a:"start"},
 ];
+
+const slClubs=[
+  {n:"EHC Arosa",       lat:46.783,lon:9.676, r:"de",dx:8,  dy:-6,  a:"start"},
+  {n:"EHC Basel",       lat:47.549,lon:7.560, r:"de",dx:-8, dy:-5,  a:"end"},
+  {n:"HC Sierre",       lat:46.295,lon:7.533, r:"fr",dx:-8, dy:-5,  a:"end"},
+  {n:"HC La Chaux",     lat:47.101,lon:6.832, r:"fr",dx:-8, dy:4,   a:"end"},
+  {n:"EHC Winterthur",  lat:47.499,lon:8.724, r:"de",dx:8,  dy:5,   a:"start"},
+  {n:"EHC Olten",       lat:47.352,lon:7.907, r:"de",dx:8,  dy:4,   a:"start"},
+  {n:"GDT Bellinzona",  lat:46.195,lon:9.024, r:"ti",dx:8,  dy:4,   a:"start"},
+  {n:"EHC Visp",        lat:46.293,lon:7.882, r:"de",dx:8,  dy:4,   a:"start"},
+  {n:"HC Thurgau",      lat:47.560,lon:9.185, r:"de",dx:8,  dy:4,   a:"start"},
+  {n:"EHC Chur",        lat:46.850,lon:9.528, r:"de",dx:-8, dy:-5,  a:"end"},
+  {n:"GCK Lions",       lat:47.315,lon:8.524, r:"de",dx:-8, dy:10,  a:"end"},
+];
+
+const mhlClubs=[
+  {n:"EHC Seewen",     lat:47.012,lon:8.643, r:"de",dx:8,  dy:4,   a:"start"},
+  {n:"EHC Frauenfeld", lat:47.556,lon:8.899, r:"de",dx:-8, dy:-5,  a:"end"},
+  {n:"SC Lyss",        lat:47.077,lon:7.302, r:"de",dx:-8, dy:4,   a:"end"},
+  {n:"EHC Wetzikon",   lat:47.323,lon:8.799, r:"de",dx:8,  dy:4,   a:"start"},
+  {n:"EHC Dübendorf",  lat:47.399,lon:8.622, r:"de",dx:8,  dy:-5,  a:"start"},
+  {n:"SC Langenthal",  lat:47.214,lon:7.792, r:"de",dx:8,  dy:-5,  a:"start"},
+  {n:"Huttwil",        lat:47.114,lon:7.840, r:"de",dx:8,  dy:4,   a:"start"},
+  {n:"EHC Thun",       lat:46.757,lon:7.629, r:"de",dx:-8, dy:4,   a:"end"},
+  {n:"Oberthurgau",    lat:47.600,lon:9.094, r:"de",dx:8,  dy:4,   a:"start"},
+  {n:"EHC Bülach",     lat:47.521,lon:8.538, r:"de",dx:-8, dy:-5,  a:"end"},
+  {n:"Franches-M.",    lat:47.197,lon:6.987, r:"fr",dx:-8, dy:4,   a:"end"},
+];
+
+// PostFinance Women's League — slightly offset from NL twins to avoid overlap in 'All' view
+const pfwlClubs=[
+  {n:"ZSC Lions",      lat:47.350,lon:8.515, r:"de",dx:-8, dy:4,   a:"end"},
+  {n:"SC Bern",        lat:46.926,lon:7.424, r:"de",dx:0,  dy:14,  a:"middle"},
+  {n:"EV Zug",         lat:47.150,lon:8.495, r:"de",dx:-8, dy:12,  a:"end"},
+  {n:"HC Davos",       lat:46.778,lon:9.813, r:"de",dx:8,  dy:4,   a:"start"},
+  {n:"HC Ambri",       lat:46.482,lon:8.682, r:"ti",dx:8,  dy:4,   a:"start"},
+  {n:"HC Fribourg",    lat:46.784,lon:7.131, r:"bi",dx:-8, dy:-6,  a:"end"},
+  {n:"Neuchâtel HA",   lat:46.991,lon:6.929, r:"fr",dx:8,  dy:4,   a:"start"},
+  {n:"SC Langenthal",  lat:47.192,lon:7.770, r:"de",dx:8,  dy:4,   a:"start"},
+];
+
+// Alle Marker nutzen dieselben Regionsfarben — nur die Form unterscheidet die Liga
 const rFill={de:"#C5E3EE",fr:"#FAD9B8",ti:"#F5B898"};
 const rMark={de:"#0083A8",fr:"#F5821F",ti:"#A8540B"};
 const cReg={
@@ -108,10 +189,48 @@ const cReg={
   "CH.GE":"fr","CH.VD":"fr","CH.NE":"fr","CH.JU":"fr","CH.FR":"fr","CH.VS":"fr",
   "CH.TI":"ti"
 };
+
+function tog(id){
+  const t=document.getElementById('tbl-'+id);
+  const open=t.style.display==='none';
+  t.style.display=open?'table':'none';
+  document.getElementById('icon-'+id).textContent=open?'▲':'▼';
+}
+
+function starPts(cx,cy,R,r){
+  return Array.from({length:10},(_,i)=>{
+    const a=(i*Math.PI/5)-Math.PI/2;
+    const rad=i%2===0?R:r;
+    return `${(cx+rad*Math.cos(a)).toFixed(2)},${(cy+rad*Math.sin(a)).toFixed(2)}`;
+  }).join(' ');
+}
+
+function setFilter(f){
+  ['all','nl','sl','mhl','pfwl'].forEach(id=>document.getElementById('btn-'+id).classList.toggle('active',id===f));
+  d3.selectAll('.nl-g').style('display',   (f==='sl'||f==='mhl'||f==='pfwl') ? 'none' : null);
+  d3.selectAll('.sl-g').style('display',   (f==='nl'||f==='mhl'||f==='pfwl') ? 'none' : null);
+  d3.selectAll('.mhl-g').style('display',  (f==='nl'||f==='sl' ||f==='pfwl') ? 'none' : null);
+  d3.selectAll('.pfwl-g').style('display', (f==='nl'||f==='sl' ||f==='mhl')  ? 'none' : null);
+  // In 'all' view: only NL clubs get labels
+  d3.selectAll('.sl-lbl').style('display',   f==='all' ? 'none' : null);
+  d3.selectAll('.mhl-lbl').style('display',  f==='all' ? 'none' : null);
+  d3.selectAll('.pfwl-lbl').style('display', f==='all' ? 'none' : null);
+}
+
 const svg=d3.select("#smap");
 const g=svg.append("g");
 const proj=d3.geoMercator();
 const path=d3.geoPath().projection(proj);
+
+function lbl(grp,x,y,c,cls,sz){
+  grp.append("text").attr("class",cls)
+    .attr("x",x+c.dx).attr("y",y+c.dy)
+    .attr("text-anchor",c.a).attr("font-size",sz)
+    .attr("font-family","'Open Sans',Arial,sans-serif").attr("font-weight","600")
+    .attr("fill","#2D2D2C")
+    .attr("stroke","rgba(250,249,246,.97)").attr("stroke-width","3")
+    .attr("paint-order","stroke").text(c.n);
+}
 
 d3.json("https://cdn.jsdelivr.net/npm/datamaps@0.5.10/src/js/data/che.topo.json").then(topo=>{
   const cantons=topojson.feature(topo,topo.objects.che);
@@ -127,26 +246,78 @@ d3.json("https://cdn.jsdelivr.net/npm/datamaps@0.5.10/src/js/data/che.topo.json"
     .attr("fill","none").attr("stroke","rgba(255,255,255,.8)")
     .attr("stroke-width",.5).attr("d",path);
 
-  clubs.forEach(c=>{
+  // ── MHL (triangles, bottom layer) ──
+  mhlClubs.forEach(c=>{
+    const [x,y]=proj([c.lon,c.lat]);
+    const R=4;
+    const grp=g.append("g").attr("class","mhl-g");
+    grp.append("polygon")
+      .attr("points",`${x},${y-R} ${x+R+1},${y+R} ${x-R-1},${y+R}`)
+      .attr("fill",rFill[c.r]||"#C5E3EE")
+      .attr("stroke",rMark[c.r]||"#0083A8")
+      .attr("stroke-width",1.6);
+    lbl(grp,x,y,c,"mhl-lbl","8.5");
+  });
+
+  // ── PFWL (stars; bi-clubs split left=de / right=fr) ──
+  const defs=svg.append("defs");
+  let cid=0;
+  pfwlClubs.forEach(c=>{
+    const [x,y]=proj([c.lon,c.lat]);
+    const grp=g.append("g").attr("class","pfwl-g");
+    const pts=starPts(x,y,5.5,2.2);
+    if(c.r==="bi"){
+      const id=`bc${cid++}`;
+      defs.append("clipPath").attr("id",id+'L').append("rect")
+        .attr("x",x-20).attr("y",y-20).attr("width",20).attr("height",40);
+      defs.append("clipPath").attr("id",id+'R').append("rect")
+        .attr("x",x).attr("y",y-20).attr("width",20).attr("height",40);
+      grp.append("polygon").attr("points",pts)
+        .attr("fill",rFill.de).attr("stroke",rMark.de).attr("stroke-width",1.5)
+        .attr("clip-path",`url(#${id}L)`);
+      grp.append("polygon").attr("points",pts)
+        .attr("fill",rFill.fr).attr("stroke",rMark.fr).attr("stroke-width",1.5)
+        .attr("clip-path",`url(#${id}R)`);
+    } else {
+      grp.append("polygon").attr("points",pts)
+        .attr("fill",rFill[c.r]||"#C5E3EE")
+        .attr("stroke",rMark[c.r]||"#0083A8")
+        .attr("stroke-width",1.5);
+    }
+    lbl(grp,x,y,c,"pfwl-lbl","9");
+  });
+
+  // ── SL (diamonds) ──
+  slClubs.forEach(c=>{
+    const [x,y]=proj([c.lon,c.lat]);
+    const R=5;
+    const grp=g.append("g").attr("class","sl-g");
+    grp.append("polygon")
+      .attr("points",`${x},${y-R} ${x+R},${y} ${x},${y+R} ${x-R},${y}`)
+      .attr("fill",rFill[c.r]||"#E8E8E2")
+      .attr("stroke",rMark[c.r]||"#888")
+      .attr("stroke-width",1.8);
+    lbl(grp,x,y,c,"sl-lbl","9.5");
+  });
+
+  // ── NL (solid circles, top layer) ──
+  nlClubs.forEach(c=>{
     const [x,y]=proj([c.lon,c.lat]);
     const R=5.5;
+    const grp=g.append("g").attr("class","nl-g");
     if(c.r==="bi"){
-      const grp=g.append("g").attr("transform",`translate(${x},${y})`);
-      grp.append("path").attr("d",`M0,${-R} A${R},${R} 0 0,1 0,${R} Z`)
+      grp.append("path").attr("d",`M${x},${y-R} A${R},${R} 0 0,1 ${x},${y+R} Z`)
         .attr("fill",rMark.de).attr("stroke","#fff").attr("stroke-width",1);
-      grp.append("path").attr("d",`M0,${-R} A${R},${R} 0 0,0 0,${R} Z`)
+      grp.append("path").attr("d",`M${x},${y-R} A${R},${R} 0 0,0 ${x},${y+R} Z`)
         .attr("fill",rMark.fr).attr("stroke","#fff").attr("stroke-width",1);
     } else {
-      g.append("circle").attr("cx",x).attr("cy",y).attr("r",R)
+      grp.append("circle").attr("cx",x).attr("cy",y).attr("r",R)
         .attr("fill",rMark[c.r]).attr("stroke","#fff").attr("stroke-width",1.2);
     }
-    g.append("text").attr("x",x+c.dx).attr("y",y+c.dy)
-      .attr("text-anchor",c.a).attr("font-size","10.5")
-      .attr("font-family","'Open Sans',Arial,sans-serif").attr("font-weight","600")
-      .attr("fill","#2D2D2C")
-      .attr("stroke","rgba(250,249,246,.98)").attr("stroke-width","3.5")
-      .attr("paint-order","stroke").text(c.n);
+    lbl(grp,x,y,c,"nl-lbl","10.5");
   });
+
+  setFilter('all');
 });
 </script>
 </body>
